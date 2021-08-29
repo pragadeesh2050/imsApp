@@ -6,23 +6,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Entity(name = "user_roles")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserRole extends Whodunit {
+@Entity(name = "incident_users")
+public class IncidentUser extends Whodunit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private User contributor;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    private Incident incident;
 }

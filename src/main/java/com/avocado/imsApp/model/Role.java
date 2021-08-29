@@ -17,7 +17,7 @@ public class Role extends Whodunit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     private String roleName;
 

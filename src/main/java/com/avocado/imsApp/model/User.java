@@ -17,7 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String middleName;
@@ -34,10 +34,24 @@ public class User {
     private Business business;
 
     @ManyToMany
+    @JoinTable(name = "incident_users",
+            joinColumns = @JoinColumn(name = "USER_id"),
+            inverseJoinColumns = @JoinColumn(name = "INCIDENT_id"))
+    private List<Incident> incident;
+
+    @ManyToMany
     @JoinTable(name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "USER_id"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_id"))
     private List<Role> roles;
+
+    public void setIncident(List<Incident> incident) {
+        this.incident = incident;
+    }
+
+    public List<Incident> getIncident() {
+        return incident;
+    }
 
     public List<Role> getRoles() {
         return roles;
