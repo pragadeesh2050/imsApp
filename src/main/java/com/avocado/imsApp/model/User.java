@@ -1,19 +1,20 @@
 package com.avocado.imsApp.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.avocado.imsApp.model.common.Whodunit;
+import lombok.*;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Table(name = "users")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
-public class User {
+@Audited
+public class User extends Whodunit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,29 +36,14 @@ public class User {
 
     @ManyToMany
     @JoinTable(name = "incident_users",
-            joinColumns = @JoinColumn(name = "USER_id"),
-            inverseJoinColumns = @JoinColumn(name = "INCIDENT_id"))
-    private List<Incident> incident;
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "incident_id"))
+    private List<Incident> incidents;
 
     @ManyToMany
-    @JoinTable(name = "USER_ROLE",
-            joinColumns = @JoinColumn(name = "USER_id"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_id"))
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    public void setIncident(List<Incident> incident) {
-        this.incident = incident;
-    }
-
-    public List<Incident> getIncident() {
-        return incident;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 }

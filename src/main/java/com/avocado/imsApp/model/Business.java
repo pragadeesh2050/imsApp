@@ -3,14 +3,17 @@ package com.avocado.imsApp.model;
 
 import com.avocado.imsApp.model.common.Whodunit;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "businesses")
+@Audited
 public class Business extends Whodunit {
 
     @Id

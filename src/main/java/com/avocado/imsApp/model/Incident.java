@@ -2,9 +2,8 @@ package com.avocado.imsApp.model;
 
 
 import com.avocado.imsApp.model.common.Whodunit;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "incidents")
-@Data
+@Getter
+@Setter
+@Audited
 public class Incident extends Whodunit {
 
     @Id
