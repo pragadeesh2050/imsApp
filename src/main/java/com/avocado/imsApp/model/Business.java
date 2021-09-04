@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity(name = "businesses")
 @Audited
+@Builder
 public class Business extends Whodunit {
 
     @Id
