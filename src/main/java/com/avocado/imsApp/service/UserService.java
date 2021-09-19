@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -30,13 +33,13 @@ public class UserService {
                 .orElseThrow(() -> new ImsAppException("Business with Id:" + userRequest.getBusinessId() + "Not Found"));
 
 
-        List<Role> roles = roleRepository.findAllByRoleNameIn(new ArrayList<String>(userRequest.getRoleDetails().values()));
+        Set<Role> roles = new HashSet<>(roleRepository.findAllById(userRequest.getRoles()));
 
         User user = mapToDto(userRequest,business, roles);
         this.userRepository.save(user);
     }
 
-    private User mapToDto(UserRequest userRequest, Business business, List<Role> roles){
+    private User mapToDto(UserRequest userRequest, Business business, Set<Role> roles){
         return User.builder()
                 .firstName(userRequest.getFirstName())
                 .middleName(userRequest.getMiddleName())

@@ -7,6 +7,7 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "roles")
 @Audited
+@Builder
 public class Role extends Whodunit {
 
     @Id
@@ -22,8 +24,6 @@ public class Role extends Whodunit {
 
     private String roleName;
 
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    @ManyToMany
-    private List<User> users;
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 }

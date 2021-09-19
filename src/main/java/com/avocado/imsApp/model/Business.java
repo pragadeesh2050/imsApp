@@ -25,7 +25,6 @@ public class Business extends Whodunit {
 
     private String businessShortName;
 
-    @JoinColumn(name = "business_id")
-    @OneToMany
+    @OneToMany(mappedBy = "business")
     private List<User> users;
 }

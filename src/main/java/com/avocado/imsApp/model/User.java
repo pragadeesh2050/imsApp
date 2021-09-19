@@ -6,7 +6,7 @@ import lombok.*;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -35,16 +35,13 @@ public class User extends Whodunit {
     @ManyToOne(optional = false)
     private Business business;
 
-    @ManyToMany
-    @JoinTable(name = "incident_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "incident_id"))
-    private List<Incident> incidents;
+    @ManyToMany(mappedBy = "contributors")
+    private Set<Incident> incidents;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    private Set<Role> roles;
 
 }
